@@ -38,3 +38,22 @@ def listar_todos():
 #dados = listar_todos()
 #print(dados)
 
+#Função de atualizar o preço
+def atualizar_preco(id_produto, novo_preco):
+    conexao = conectar_banco()
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute(
+                "UPDATE produtos SET preco = %s WHERE id = %s",
+                (novo_preco, id_produto)
+            )
+            conexao.commit()
+            return "Preço atualizado com sucesso!"
+        except Exception as erro:
+            return f"Erro ao tentar atualizar: {erro}"
+        finally:
+            conexao.close()
+
+
+#atualizar_preco(1, 1973.50)
