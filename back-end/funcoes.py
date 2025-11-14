@@ -75,3 +75,20 @@ def deletar(id_produto):
 
 #deletar(1)
 
+#Função de Mostrar o valor total em estoque
+def valor_total():
+    conexao = conectar_banco()
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute("""
+                SELECT SUM(preco * quantidade) FROM produtos
+            """)
+            total = cursor.fetchone()[0]
+            return total
+        except Exception as erro:
+            return f"Não foi possivel mostrar o valor total"
+        finally:
+            conexao.close()
+
+#print(valor_total())
