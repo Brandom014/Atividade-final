@@ -55,5 +55,23 @@ def atualizar_preco(id_produto, novo_preco):
         finally:
             conexao.close()
 
-
 #atualizar_preco(1, 1973.50)
+
+#Função de deletar
+def deletar(id_produto):
+    conexao = conectar_banco()
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            cursor.execute("""
+                DELETE FROM produtos WHERE id = %s 
+            """, (id_produto))
+            conexao.commit()
+            return f"Produto deletado com sucesso!"
+        except Exception as erro:
+            return f"Erro ao tentar deletar o produto: {erro}"
+        finally:
+            conexao.close()
+
+#deletar(1)
+
