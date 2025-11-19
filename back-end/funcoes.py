@@ -63,11 +63,12 @@ def deletar(id_produto):
     if conexao:
         try:
             cursor = conexao.cursor()
-            cursor.execute("""
-                DELETE FROM produtos WHERE id = %s 
-            """, (id_produto))
+            cursor.execute(
+                "DELETE FROM produtos WHERE id = %s",
+                (id_produto,)  # ← A vírgula é OBRIGATÓRIA
+            )
             conexao.commit()
-            return f"Produto deletado com sucesso!"
+            return "Produto deletado com sucesso!"
         except Exception as erro:
             return f"Erro ao tentar deletar o produto: {erro}"
         finally:
